@@ -1,6 +1,12 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
+import { NavigationMenu } from "@/components/ui/navigation-menu";
+import { ModeToggle } from "@/components/ui/dark-mode-toggle";
+import { Header } from "@/components/ui/header";
+import Image from "next/image";
+import logo from "../static/imgs/placeholderlogo.jpg"
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -26,9 +32,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistMono.variable} antialiased`}
       >
-        {children}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="flex justify-between items-center pl-20 pr-8 py-4">
+            <div className="flex gap-20 items-center">
+              <div className="font-semibold">SCOUT</div>
+              <Header />
+            </div>
+            <ModeToggle />
+
+          </div>
+          {children}
+
+        </ThemeProvider>
       </body>
     </html>
   );
